@@ -13,12 +13,13 @@ RUN yum install -y yum-plugin-ovl; yum clean all
 # install dev tools
 RUN yum clean all \
     && rpm --rebuilddb \
-    && yum install -y curl which tar sudo openssh-server openssh-clients rsync dos2unix \
+    && yum install -y curl which tar sudo openssh-server openssh-clients rsync dos2unix vim \
 	&& yum clean all \
 	&& yum update -y libselinux \
 	&& yum clean all
 	
-# update libselinux. see https://github.com/sequenceiq/hadoop-docker/issues/14
+# fix not working arrow keys in vim
+RUN echo "set term=builtin_ansi" > /root/.vimrc	
 
 # passwordless ssh
 RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key
