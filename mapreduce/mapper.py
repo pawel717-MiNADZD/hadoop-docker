@@ -25,8 +25,6 @@ labels = ["video_id", "trending_date", "title", "channel_title", "category_id", 
 labels_indices = dict(zip(labels, range(len(labels))))
 
 for data_row in csv_reader:
-	# extract informations that are important
-
 	if categories.has_key(data_row[labels_indices['category_id']]):
 		print '%s\t%s\t%s\t%s' % (categories[data_row[labels_indices['category_id']]],
 							data_row[labels_indices['likes']],
