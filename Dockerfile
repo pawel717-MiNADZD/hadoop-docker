@@ -102,7 +102,7 @@ ENV BOOTSTRAP /etc/bootstrap.sh
 ADD mapreduce/ /mapreduce
 RUN chown -R root:root /mapreduce
 RUN chmod -R 777 /mapreduce
-RUN find /mapreduce -type f -name "mapper.py" -o -name "reducer.py" | xargs dos2unix
+RUN find /mapreduce -type f -name "*.py" | xargs dos2unix
 
 ADD data/youtube-statistics/ /data/youtube-statistics/
 RUN chown -R root:root /data/
@@ -123,7 +123,6 @@ RUN echo "UsePAM no" >> /etc/ssh/sshd_config
 RUN echo "Port 2122" >> /etc/ssh/sshd_config
 
 RUN service sshd start && $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh && $HADOOP_PREFIX/sbin/start-dfs.sh && $HADOOP_PREFIX/bin/hdfs dfs -mkdir -p /user/root
-RUN service sshd start && $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh && $HADOOP_PREFIX/sbin/start-dfs.sh && $HADOOP_PREFIX/bin/hdfs dfs -put $HADOOP_PREFIX/etc/hadoop/ input
 
 CMD ["/etc/bootstrap.sh", "-d"]
 
